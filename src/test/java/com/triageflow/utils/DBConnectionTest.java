@@ -1,7 +1,6 @@
 // DBConnectionTest.java
-package com.triageflow.dao;
+package com.triageflow.utils;
 
-import com.triageflow.utils.DBConnection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -10,7 +10,8 @@ public class ExamSuggestion {
     private double estimatedWaitTime; // 分钟
     private Date estimatedStartTime;
 
-    // 构造函数、getters和setters
+    public ExamSuggestion() {}
+
     public ExamSuggestion(int patientId, int examId, int deviceId, double estimatedWaitTime, Date estimatedStartTime) {
         this.patientId = patientId;
         this.examId = examId;
@@ -19,25 +20,31 @@ public class ExamSuggestion {
         this.estimatedStartTime = estimatedStartTime;
     }
 
+    // Getter和Setter
     public int getPatientId() {
         return patientId;
     }
+    public void setPatientId(int patientId) { this.patientId = patientId; }
 
     public int getExamId() {
         return examId;
     }
+    public void setExamId(int examId) { this.examId = examId; }
 
     public int getDeviceId() {
         return deviceId;
     }
+    public void setDeviceId(int deviceId) { this.deviceId = deviceId; }
 
     public double getEstimatedWaitTime() {
         return estimatedWaitTime;
     }
+    public void setEstimatedWaitTime(double estimatedWaitTime) { this.estimatedWaitTime = estimatedWaitTime; }
 
     public Date getEstimatedStartTime() {
         return estimatedStartTime;
     }
+    public void setEstimatedStartTime(Date estimatedStartTime) { this.estimatedStartTime = estimatedStartTime; }
 
     @Override
     public String toString() {
