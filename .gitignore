@@ -7,7 +7,7 @@ logs/
 *.log
 
 垃圾桶/
-*.java~
+*.java
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
