@@ -1,0 +1,46 @@
+2025-08-27 00:00:16.644 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期2时间23:58:49.335的有效工作计划
+2025-08-27 00:02:29.990 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:02:28.822 的工作状态
+2025-08-27 00:03:56.554 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:03:56.552 的工作状态
+2025-08-27 00:03:56.568 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:03:56.552的有效工作计划
+2025-08-27 00:04:03.347 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:04:02.093 的工作状态
+2025-08-27 00:05:06.270 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:04:02.093的有效工作计划
+2025-08-27 00:07:37.086 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:07:37.085 的工作状态
+2025-08-27 00:07:37.103 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:07:37.103 的工作状态
+2025-08-27 00:07:37.120 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:07:37.103的有效工作计划
+2025-08-27 00:09:37.553 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:09:37.551 的工作状态
+2025-08-27 00:09:37.563 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:09:38, 结束时间=01:09:38
+2025-08-27 00:09:37.563 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:09:37.551的有效工作计划
+2025-08-27 00:09:57.420 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:09:57.418 的工作状态
+2025-08-27 00:09:57.438 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:09:57, 结束时间=01:09:57
+2025-08-27 00:09:57.441 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:09:57.441 的工作状态
+2025-08-27 00:09:57.452 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:09:57, 结束时间=01:09:57
+2025-08-27 00:09:57.453 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:09:57.441的有效工作计划
+2025-08-27 00:11:02.119 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:11:02.118 的工作状态
+2025-08-27 00:11:02.127 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:11:02, 结束时间=01:11:02
+2025-08-27 00:11:02.128 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:11:02.128 的工作状态
+2025-08-27 00:11:02.133 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:11:02, 结束时间=01:11:02
+2025-08-27 00:11:02.134 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:11:02.128的有效工作计划
+2025-08-27 00:12:05.798 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:12:05.797 的工作状态
+2025-08-27 00:12:05.806 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:12:06, 结束时间=01:12:06
+2025-08-27 00:12:05.807 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:12:05.797的有效工作计划
+2025-08-27 00:14:17.641 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:14:17.640 的工作状态
+2025-08-27 00:14:17.649 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:14:18, 结束时间=01:14:18
+2025-08-27 00:14:17.649 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:14:17.640的有效工作计划
+2025-08-27 00:14:33.438 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:14:33.437 的工作状态
+2025-08-27 00:14:33.447 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:14:33, 结束时间=01:14:33
+2025-08-27 00:14:33.448 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:14:33.448 的工作状态
+2025-08-27 00:14:33.453 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:14:33, 结束时间=01:14:33
+2025-08-27 00:14:33.453 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:14:33.448的有效工作计划
+2025-08-27 00:17:34.700 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:17:34 的工作状态
+2025-08-27 00:17:34.719 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:17:35, 结束时间=01:17:35
+2025-08-27 00:17:34.720 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间00:17:34的有效工作计划
+2025-08-27 00:18:49.657 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:18:50 的工作状态
+2025-08-27 00:18:49.674 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:18:50, 结束时间=01:18:50
+2025-08-27 00:18:49.676 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:18:49 的工作状态
+2025-08-27 00:18:49.688 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:18:50, 结束时间=01:18:50
+2025-08-27 00:18:49.689 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:18:49的有效工作计划
+2025-08-27 00:19:23.276 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 00:19:24 的工作状态
+2025-08-27 00:19:23.285 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:19:23, 结束时间=01:19:23
+2025-08-27 00:19:23.285 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 检查设备 1 在星期 3 时间 03:19:23 的工作状态
+2025-08-27 00:19:23.290 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 找到工作计划: 开始时间=00:19:23, 结束时间=01:19:23
+2025-08-27 00:19:23.290 [main] DEBUG c.t.d.i.DeviceWorkingScheduleDAOImpl - 未找到设备1在星期3时间03:19:23的有效工作计划
