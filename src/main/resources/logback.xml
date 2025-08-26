@@ -27,6 +27,4 @@
         <appender-ref ref="FILE" />
     </root>
 
-    <!-- DAO层特别设置为DEBUG级别，可以查看SQL执行 -->
-    <logger name="com.triageflow.dao" level="DEBUG" />
 </configuration>

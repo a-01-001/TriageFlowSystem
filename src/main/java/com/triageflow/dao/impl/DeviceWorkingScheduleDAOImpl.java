@@ -144,8 +144,6 @@ public class DeviceWorkingScheduleDAOImpl implements DeviceWorkingScheduleDAO {
         // 获取当前时间
         LocalTime localTime = localCheckTime.toLocalTime();
 
-        logger.debug("检查设备 {} 在星期 {} 时间 {} 的工作状态", deviceId, adjustedDayOfWeek, localTime);
-
         String sql = "SELECT * FROM device_working_schedules WHERE device_id = ? AND day_of_week = ? AND is_working = TRUE";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -156,8 +154,6 @@ public class DeviceWorkingScheduleDAOImpl implements DeviceWorkingScheduleDAO {
             while (rs.next()) {
                 LocalTime startTime = rs.getTime("start_time").toLocalTime();
                 LocalTime endTime = rs.getTime("end_time").toLocalTime();
-
-                logger.debug("找到工作计划: 开始时间={}, 结束时间={}", startTime, endTime);
 
                 if (!localTime.isBefore(startTime) && !localTime.isAfter(endTime)) {
                     return true;
