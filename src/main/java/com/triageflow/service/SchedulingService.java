@@ -1,9 +1,9 @@
-package com.triageflow.dao;
+package com.triageflow.service;
 
 import com.triageflow.entity.PatientExamAssignment;
 import java.util.List;
 
-public interface SchedulingDAO {
+public interface SchedulingService {
     // 调度相关方法
     List<PatientExamAssignment> schedulePatientExams(int patientId);
     boolean rescheduleAssignment(int assignmentId);
