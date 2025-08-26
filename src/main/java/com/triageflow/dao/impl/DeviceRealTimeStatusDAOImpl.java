@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.DeviceRealTimeStatusDAO;
 import com.triageflow.entity.DeviceRealTimeStatus;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(DeviceRealTimeStatusDAOImpl.class);
 
     @Override
     public Optional<DeviceRealTimeStatus> findById(int id) {
@@ -21,7 +26,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 return Optional.of(mapResultSetToDeviceRealTimeStatus(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据ID查询设备实时状态失败", e);
         }
         return Optional.empty();
     }
@@ -37,7 +42,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 statuses.add(mapResultSetToDeviceRealTimeStatus(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有设备实时状态失败", e);
         }
         return statuses;
     }
@@ -63,7 +68,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 status.setStatusId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存设备实时状态失败", e);
         }
         return status;
     }
@@ -86,7 +91,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
             stmt.setInt(9, status.getStatusId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新设备实时状态失败", e);
         }
         return status;
     }
@@ -99,7 +104,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除设备实时状态失败", e);
         }
     }
 
@@ -111,7 +116,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
             stmt.setInt(1, deviceId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据设备ID删除实时状态失败", e);
         }
     }
 
@@ -126,7 +131,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 return Optional.of(mapResultSetToDeviceRealTimeStatus(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据设备ID查询实时状态失败", e);
         }
         return Optional.empty();
     }
@@ -143,7 +148,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 statuses.add(mapResultSetToDeviceRealTimeStatus(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据状态查询设备列表失败", e);
         }
         return statuses;
     }
@@ -158,7 +163,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新设备状态失败", e);
         }
         return false;
     }
@@ -174,7 +179,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新设备分配信息失败", e);
         }
         return false;
     }
@@ -190,7 +195,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 statuses.add(mapResultSetToDeviceRealTimeStatus(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询可用设备列表失败", e);
         }
         return statuses;
     }
@@ -206,7 +211,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 return "Idle".equals(rs.getString("status"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("检查设备可用性失败", e);
         }
         return false;
     }
@@ -222,7 +227,7 @@ public class DeviceRealTimeStatusDAOImpl implements DeviceRealTimeStatusDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计特定状态设备数量失败", e);
         }
         return 0;
     }

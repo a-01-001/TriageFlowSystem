@@ -76,7 +76,6 @@ public class MedicalExamDAOTest {
     void testFindAll() {
         List<MedicalExam> exams = medicalExamDAO.findAll();
         assertFalse(exams.isEmpty(), "检查项目列表不应为空");
-        assertTrue(exams.size() >= 1, "应该至少有一个检查项目");
     }
 
     @Test
@@ -86,7 +85,6 @@ public class MedicalExamDAOTest {
         newExam.setRequiresFasting(true);
 
         MedicalExam savedExam = medicalExamDAO.save(newExam);
-        assertNotNull(savedExam.getExamId(), "保存的检查项目应该有ID");
         assertTrue(savedExam.getExamId() > 0, "检查项目ID应该大于0");
 
         // 清理

@@ -2,10 +2,13 @@ package com.triageflow.service;
 
 import com.triageflow.dao.*;
 import com.triageflow.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SchedulerService {
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
     private final PatientDAO patientDAO;
     private final MedicalExamDAO medicalExamDAO;
     private final MedicalDeviceDAO medicalDeviceDAO;
@@ -34,7 +37,7 @@ public class SchedulerService {
         // 1. 获取患者信息和待检查项目
         Patient patient = patientDAO.findById(patientId).orElseThrow();
         List<PatientExamAssignment> pendingAssignments = assignmentDAO.findByPatientId(patientId)
-                .stream().filter(a -> "Pending".equals(a.getStatus())).collect(Collectors.toList());
+                .stream().filter(a -> "Pending".equals(a.getStatus())).toList();
 
         // 2. 过滤出当前可执行的检查（满足前置条件）
         List<MedicalExam> availableExams = new ArrayList<>();
@@ -48,11 +51,11 @@ public class SchedulerService {
         // 3. 优先处理空腹检查
         List<MedicalExam> fastingExams = availableExams.stream()
                 .filter(MedicalExam::isRequiresFasting)
-                .collect(Collectors.toList());
+                .toList();
 
         List<MedicalExam> nonFastingExams = availableExams.stream()
                 .filter(exam -> !exam.isRequiresFasting())
-                .collect(Collectors.toList());
+                .toList();
 
         // 4. 为每个检查找到最佳设备
         ExamSuggestion bestSuggestion = null;
@@ -121,7 +124,7 @@ public class SchedulerService {
         List<PatientExamAssignment> queue = assignmentDAO.findByStatus("Scheduled").stream()
                 .filter(a -> a.getAssignedDeviceId() != null && a.getAssignedDeviceId() == device.getDeviceId())
                 .sorted(Comparator.comparing(PatientExamAssignment::getScheduledStartTime))
-                .collect(Collectors.toList());
+                .toList();
 
         // 计算队列中所有检查的总时间
         double totalTime = 0;
@@ -169,7 +172,7 @@ public class SchedulerService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("调度分配失败", e);
         }
         return false;
     }

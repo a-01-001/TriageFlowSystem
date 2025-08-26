@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.DeviceExamCapabilityDAO;
 import com.triageflow.entity.DeviceExamCapability;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(DeviceExamCapabilityDAOImpl.class);
 
     @Override
     public Optional<DeviceExamCapability> findById(int id) {
@@ -28,7 +33,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 capabilities.add(mapResultSetToDeviceExamCapability(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有设备检查能力记录失败", e);
         }
         return capabilities;
     }
@@ -43,7 +48,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
             stmt.setInt(3, capability.getDurationMinutes());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存设备检查能力失败", e);
         }
         return capability;
     }
@@ -58,7 +63,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
             stmt.setInt(3, capability.getExamId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新设备检查能力失败", e);
         }
         return capability;
     }
@@ -78,7 +83,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
             stmt.setInt(2, examId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除设备检查能力失败", e);
         }
     }
 
@@ -94,7 +99,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 return Optional.of(mapResultSetToDeviceExamCapability(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查找设备检查能力失败", e);
         }
         return Optional.empty();
     }
@@ -111,7 +116,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 capabilities.add(mapResultSetToDeviceExamCapability(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据设备ID查找检查能力失败", e);
         }
         return capabilities;
     }
@@ -128,7 +133,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 capabilities.add(mapResultSetToDeviceExamCapability(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据检查ID查找设备能力失败", e);
         }
         return capabilities;
     }
@@ -145,7 +150,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 return rs.getInt("duration_minutes");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("获取检查持续时间失败", e);
         }
         return 0;
     }
@@ -162,7 +167,7 @@ public class DeviceExamCapabilityDAOImpl implements DeviceExamCapabilityDAO {
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("检查设备能否执行检查失败", e);
         }
         return false;
     }

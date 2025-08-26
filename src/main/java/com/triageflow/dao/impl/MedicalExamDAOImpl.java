@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.MedicalExamDAO;
 import com.triageflow.entity.MedicalExam;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class MedicalExamDAOImpl implements MedicalExamDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(MedicalExamDAOImpl.class);
 
     @Override
     public Optional<MedicalExam> findById(int id) {
@@ -21,7 +26,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 return Optional.of(mapResultSetToMedicalExam(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据ID查询医疗检查失败", e);
         }
         return Optional.empty();
     }
@@ -37,7 +42,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 exams.add(mapResultSetToMedicalExam(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有医疗检查失败", e);
         }
         return exams;
     }
@@ -55,7 +60,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 exam.setExamId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存医疗检查失败", e);
         }
         return exam;
     }
@@ -70,7 +75,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
             stmt.setInt(3, exam.getExamId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新医疗检查失败", e);
         }
         return exam;
     }
@@ -83,7 +88,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除医疗检查失败", e);
         }
     }
 
@@ -98,7 +103,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 return Optional.of(mapResultSetToMedicalExam(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据名称查询医疗检查失败", e);
         }
         return Optional.empty();
     }
@@ -114,7 +119,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 exams.add(mapResultSetToMedicalExam(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询需要空腹的医疗检查失败", e);
         }
         return exams;
     }
@@ -135,7 +140,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 exams.add(mapResultSetToMedicalExam(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据设备ID查询医疗检查失败", e);
         }
         return exams;
     }
@@ -150,7 +155,7 @@ public class MedicalExamDAOImpl implements MedicalExamDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计医疗检查数量失败", e);
         }
         return 0;
     }

@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.MedicalDeviceDAO;
 import com.triageflow.entity.MedicalDevice;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(MedicalDeviceDAOImpl.class);
 
     @Override
     public Optional<MedicalDevice> findById(int id) {
@@ -21,7 +26,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 return Optional.of(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据ID查询医疗设备失败", e);
         }
         return Optional.empty();
     }
@@ -37,7 +42,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 devices.add(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有医疗设备失败", e);
         }
         return devices;
     }
@@ -56,7 +61,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 device.setDeviceId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存医疗设备失败", e);
         }
         return device;
     }
@@ -72,7 +77,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
             stmt.setInt(4, device.getDeviceId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新医疗设备失败", e);
         }
         return device;
     }
@@ -85,7 +90,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除医疗设备失败", e);
         }
     }
 
@@ -101,7 +106,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 devices.add(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据位置查询医疗设备失败", e);
         }
         return devices;
     }
@@ -117,7 +122,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 return Optional.of(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据名称查询医疗设备失败", e);
         }
         return Optional.empty();
     }
@@ -135,7 +140,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 devices.add(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询可用医疗设备失败", e);
         }
         return devices;
     }
@@ -158,7 +163,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 devices.add(mapResultSetToMedicalDevice(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据检查ID查询医疗设备失败", e);
         }
         return devices;
     }
@@ -173,7 +178,7 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计医疗设备数量失败", e);
         }
         return 0;
     }

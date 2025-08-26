@@ -11,8 +11,9 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DBConnectionTest {
@@ -40,7 +41,7 @@ public class DBConnectionTest {
             System.out.println("数据库初始化完成");
         } catch (SQLException | IOException e) {
             System.err.println("初始化数据库失败: " + e.getMessage());
-            e.printStackTrace();
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

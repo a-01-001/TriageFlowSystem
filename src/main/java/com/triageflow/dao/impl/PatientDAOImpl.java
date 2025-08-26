@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.PatientDAO;
 import com.triageflow.entity.Patient;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class PatientDAOImpl implements PatientDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(PatientDAOImpl.class);
 
     @Override
     public Optional<Patient> findById(int id) {
@@ -21,7 +26,7 @@ public class PatientDAOImpl implements PatientDAO {
                 return Optional.of(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据ID查询患者失败", e);
         }
         return Optional.empty();
     }
@@ -37,7 +42,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patients.add(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有患者失败", e);
         }
         return patients;
     }
@@ -60,7 +65,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patient.setPatientId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存患者信息失败", e);
         }
         return patient;
     }
@@ -80,7 +85,7 @@ public class PatientDAOImpl implements PatientDAO {
             stmt.setInt(8, patient.getPatientId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新患者信息失败", e);
         }
         return patient;
     }
@@ -93,7 +98,7 @@ public class PatientDAOImpl implements PatientDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除患者失败", e);
         }
     }
 
@@ -109,12 +114,10 @@ public class PatientDAOImpl implements PatientDAO {
                 patients.add(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据到达日期查询患者失败", e);
         }
         return patients;
     }
-
-
 
     @Override
     public Optional<Patient> findByName(String name) {
@@ -127,7 +130,7 @@ public class PatientDAOImpl implements PatientDAO {
                 return Optional.of(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据姓名查询患者失败", e);
         }
         return Optional.empty();
     }
@@ -143,7 +146,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patients.add(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询空腹患者失败", e);
         }
         return patients;
     }
@@ -158,7 +161,7 @@ public class PatientDAOImpl implements PatientDAO {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新患者空腹状态失败", e);
         }
         return false;
     }
@@ -176,7 +179,7 @@ public class PatientDAOImpl implements PatientDAO {
                 patients.add(mapResultSetToPatient(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询有待处理检查的患者失败", e);
         }
         return patients;
     }
@@ -191,7 +194,7 @@ public class PatientDAOImpl implements PatientDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计患者数量失败", e);
         }
         return 0;
     }

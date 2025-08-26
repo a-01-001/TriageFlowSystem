@@ -3,6 +3,9 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.PatientExamAssignmentDAO;
 import com.triageflow.entity.PatientExamAssignment;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(PatientExamAssignmentDAOImpl.class);
 
     @Override
     public Optional<PatientExamAssignment> findById(int id) {
@@ -22,7 +27,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 return Optional.of(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据ID查询患者检查分配失败", e);
         }
         return Optional.empty();
     }
@@ -38,7 +43,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignments.add(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有患者检查分配失败", e);
         }
         return assignments;
     }
@@ -68,7 +73,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignment.setAssignmentId(rs.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存患者检查分配失败", e);
         }
         return assignment;
     }
@@ -95,7 +100,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             stmt.setInt(12, assignment.getAssignmentId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新患者检查分配失败", e);
         }
         return assignment;
     }
@@ -108,7 +113,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除患者检查分配失败", e);
         }
     }
 
@@ -120,7 +125,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             stmt.setInt(1, patientId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据患者ID删除检查分配失败", e);
         }
     }
 
@@ -132,7 +137,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             stmt.setInt(1, examId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据检查ID删除检查分配失败", e);
         }
     }
 
@@ -145,7 +150,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             stmt.setInt(2, examId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据患者ID和检查ID删除检查分配失败", e);
         }
     }
 
@@ -161,7 +166,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignments.add(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据患者ID查询检查分配失败", e);
         }
         return assignments;
     }
@@ -178,7 +183,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignments.add(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据检查ID查询检查分配失败", e);
         }
         return assignments;
     }
@@ -195,7 +200,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignments.add(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据状态查询检查分配失败", e);
         }
         return assignments;
     }
@@ -210,7 +215,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("更新检查分配状态失败", e);
         }
         return false;
     }
@@ -230,7 +235,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
 
             if (rs.next()) {
                 int durationMinutes = rs.getInt("duration_minutes");
-                Date endTime = new Date(startTime.getTime() + durationMinutes * 60 * 1000);
+                Date endTime = new Date(startTime.getTime() + (long) durationMinutes * 60 * 1000);
 
                 // 更新分配记录
                 String updateSql = "UPDATE patient_exam_assignments SET status = 'Scheduled', " +
@@ -246,7 +251,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("调度检查失败", e);
         }
         return false;
     }
@@ -262,7 +267,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 assignments.add(mapResultSetToPatientExamAssignment(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询待处理检查分配失败", e);
         }
         return assignments;
     }
@@ -278,7 +283,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计患者检查分配数量失败", e);
         }
         return 0;
     }
@@ -303,6 +308,7 @@ public class PatientExamAssignmentDAOImpl implements PatientExamAssignmentDAO {
     }
 
     private void setNullableInt(PreparedStatement stmt, int index, Integer value) throws SQLException {
+        //assignedDeviceId 字段是可为空的，且恰好在 SQL 语句中是第 9 个参数位置。
         if (value != null) {
             stmt.setInt(index, value);
         } else {

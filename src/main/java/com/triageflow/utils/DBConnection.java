@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConnection {
-    private static String url;
-    private static String username;
-    private static String password;
+    private static final String url;
+    private static final String username;
+    private static final String password;
 
     static {
         try {
@@ -26,7 +26,7 @@ public class DBConnection {
                 password = props.getProperty("db.password");
             } else {
                 // 默认配置
-                url = "jdbc:mysql://localhost:3306";
+                url = "jdbc:mysql://localhost:3306/TriageFlowSystem1";
                 username = "root";
                 password = "123456";
             }

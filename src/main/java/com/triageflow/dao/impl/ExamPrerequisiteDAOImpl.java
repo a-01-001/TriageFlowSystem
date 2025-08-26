@@ -3,12 +3,17 @@ package com.triageflow.dao.impl;
 import com.triageflow.dao.ExamPrerequisiteDAO;
 import com.triageflow.entity.ExamPrerequisite;
 import com.triageflow.utils.DBConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExamPrerequisiteDAOImpl.class);
 
     @Override
     public Optional<ExamPrerequisite> findById(int id) {
@@ -28,7 +33,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
                 prerequisites.add(mapResultSetToExamPrerequisite(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询所有检查前置条件失败", e);
         }
         return prerequisites;
     }
@@ -42,7 +47,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
             stmt.setInt(2, prerequisite.getPrerequisiteExamId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("保存检查前置条件失败", e);
         }
         return prerequisite;
     }
@@ -69,7 +74,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
             stmt.setInt(2, prerequisiteExamId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("删除检查前置条件失败", e);
         }
     }
 
@@ -85,7 +90,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
                 prerequisites.add(mapResultSetToExamPrerequisite(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("根据检查ID查询前置条件失败", e);
         }
         return prerequisites;
     }
@@ -105,7 +110,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
                 return rs.getInt(1) == 0; // 如果没有未完成的前置检查，则返回true
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("检查前置条件是否满足失败", e);
         }
         return false;
     }
@@ -121,7 +126,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("检查是否有前置条件失败", e);
         }
         return false;
     }
@@ -137,7 +142,7 @@ public class ExamPrerequisiteDAOImpl implements ExamPrerequisiteDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("统计检查前置条件数量失败", e);
         }
         return 0;
     }

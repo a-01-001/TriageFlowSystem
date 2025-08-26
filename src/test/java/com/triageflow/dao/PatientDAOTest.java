@@ -83,7 +83,6 @@ public class PatientDAOTest {
     void testFindAll() {
         List<Patient> patients = patientDAO.findAll();
         assertFalse(patients.isEmpty(), "患者列表不应为空");
-        assertTrue(patients.size() >= 1, "应该至少有一个患者");
     }
 
     @Test
@@ -99,7 +98,6 @@ public class PatientDAOTest {
         );
 
         Patient savedPatient = patientDAO.save(newPatient);
-        assertNotNull(savedPatient.getPatientId(), "保存的患者应该有ID");
         assertTrue(savedPatient.getPatientId() > 0, "患者ID应该大于0");
 
         // 清理

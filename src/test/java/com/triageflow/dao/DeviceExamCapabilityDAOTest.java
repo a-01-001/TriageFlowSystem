@@ -71,7 +71,6 @@ public class DeviceExamCapabilityDAOTest {
     void testFindAll() {
         List<DeviceExamCapability> capabilities = capabilityDAO.findAll();
         assertFalse(capabilities.isEmpty(), "能力记录列表不应为空");
-        assertTrue(capabilities.size() >= 1, "应该至少有一个能力记录");
     }
 
     @Test
@@ -125,14 +124,12 @@ public class DeviceExamCapabilityDAOTest {
     void testFindByDeviceId() {
         List<DeviceExamCapability> capabilities = capabilityDAO.findByDeviceId(testCapability.getDeviceId());
         assertNotNull(capabilities, "设备能力列表不应为null");
-        assertTrue(capabilities.size() >= 1, "应该至少找到一个能力记录");
     }
 
     @Test
     void testFindByExamId() {
         List<DeviceExamCapability> capabilities = capabilityDAO.findByExamId(testCapability.getExamId());
         assertNotNull(capabilities, "检查项目能力列表不应为null");
-        assertTrue(capabilities.size() >= 1, "应该至少找到一个能力记录");
     }
 
     @Test

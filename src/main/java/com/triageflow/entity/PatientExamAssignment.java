@@ -95,9 +95,14 @@ public class PatientExamAssignment {
 
     public int getEstimatedDuration() {
         if (assignedDevice != null && exam != null) {
-            // 这里需要根据设备和检查项目获取实际时长
-            return 0; // 实际实现需要查询设备能力表
+            // 从关联的设备能力对象中获取时长
+            for (DeviceExamCapability capability : assignedDevice.getCapabilities()) {
+                if (capability.getExamId() == exam.getExamId()) {
+                    return capability.getDurationMinutes();
+                }
+            }
         }
+        // 如果没有分配设备或找不到对应能力，返回默认值
         return 0;
     }
 
