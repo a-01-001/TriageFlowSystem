@@ -1,33 +1,53 @@
 package com.triageflow.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/TFS?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String USER = "root";
-    private static final String PASSWORD = "123456";
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static String url;
+    private static String username;
+    private static String password;
 
     static {
         try {
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL Driver not found", e);
+            // 加载配置文件
+            Properties props = new Properties();
+            InputStream input = DBConnection.class.getClassLoader()
+                    .getResourceAsStream("config.properties");
+
+            if (input != null) {
+                props.load(input);
+                url = props.getProperty("db.url");
+                username = props.getProperty("db.username");
+                password = props.getProperty("db.password");
+            } else {
+                // 默认配置
+                url = "jdbc:mysql://localhost:3306";
+                username = "root";
+                password = "123456";
+            }
+
+            // 注册驱动
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("初始化数据库连接失败", e);
         }
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return DriverManager.getConnection(url, username, password);
     }
 
-    public static void closeConnection(Connection conn) {
-        if (conn != null) {
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
             try {
-                conn.close();
+                connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("关闭数据库连接时出错: " + e.getMessage());
             }
         }
     }
