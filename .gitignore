@@ -4,6 +4,10 @@ target/
 !**/src/test/**/target/
 
 logs/
+*.log
+
+垃圾桶/
+*.java~
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
