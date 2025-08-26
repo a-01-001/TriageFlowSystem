@@ -126,16 +126,25 @@ public class DeviceWorkingScheduleDAOImpl implements DeviceWorkingScheduleDAO {
 
     @Override
     public boolean isDeviceWorking(int deviceId, Date checkTime) {
-        // 获取当前日期的星期几 (1-7, 1=Monday, 7=Sunday)
+        // 获取当前日期的星期几
         Calendar cal = Calendar.getInstance();
+
         cal.setTime(checkTime);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         // 调整星期几的表示方式 (Calendar中周日=1, 周一=2, 我们需要周一=1, 周日=7)
         int adjustedDayOfWeek = dayOfWeek - 1;
         if (adjustedDayOfWeek == 0) adjustedDayOfWeek = 7;
 
+        // 转换为小时:分钟:秒格式用于比较
+        cal.setTime(checkTime);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+
+        int currentTimeInSeconds = hour * 3600 + minute * 60 + second;
+
         // 获取当前时间
-        Time currentTime = new Time(checkTime.getTime());
+        // Time currentTime = new Time(checkTime.getTime());
 
         String sql = "SELECT * FROM device_working_schedules WHERE device_id = ? AND day_of_week = ? AND is_working = TRUE";
         try (Connection conn = DBConnection.getConnection();
@@ -148,14 +157,57 @@ public class DeviceWorkingScheduleDAOImpl implements DeviceWorkingScheduleDAO {
                 Time startTime = rs.getTime("start_time");
                 Time endTime = rs.getTime("end_time");
 
+                // 提取开始时间和结束时间的小时、分钟和秒
+                Calendar startCal = Calendar.getInstance();
+                startCal.setTime(startTime);
+                int startHour = startCal.get(Calendar.HOUR_OF_DAY);
+                int startMinute = startCal.get(Calendar.MINUTE);
+                int startSecond = startCal.get(Calendar.SECOND);
+
+                Calendar endCal = Calendar.getInstance();
+                endCal.setTime(endTime);
+                int endHour = endCal.get(Calendar.HOUR_OF_DAY);
+                int endMinute = endCal.get(Calendar.MINUTE);
+                int endSecond = endCal.get(Calendar.SECOND);
+
+                // 转换为秒数进行比较
+                int startTimeInSeconds = startHour * 3600 + startMinute * 60 + startSecond;
+                int endTimeInSeconds = endHour * 3600 + endMinute * 60 + endSecond;
+
+                //System.out.println("currentTimeInSeconds: " + currentTimeInSeconds);
+                //System.out.println("startTimeInSeconds: " + startTimeInSeconds);
+                //System.out.println("endTimeInSeconds: " + endTimeInSeconds);
+
+                // 检查当前时间是否在工作时间段内 (包括结束时间)
+                if (currentTimeInSeconds >= startTimeInSeconds && currentTimeInSeconds <= endTimeInSeconds) {
+                    return true;
+                }
+
+/*----------------------屎
+                System.out.println("currenTime: " + currentTime);
+
+                System.out.println("startTime: " + startTime);
+                System.out.println("endTime: " + endTime);
+
+                System.out.println("after: " + currentTime.after(startTime));
+                System.out.println("before: " + currentTime.before(endTime));
+
+                        currenTime: 16:31:40
+                        startTime: 15:31:40
+                        endTime: 17:31:40
+                        after: true
+                        before: false
+
                 // 检查当前时间是否在工作时间段内
                 if (currentTime.after(startTime) && currentTime.before(endTime)) {
                     return true;
                 }
+                */
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("No working schedule found for device " + deviceId + " on day " + adjustedDayOfWeek + " at time " + checkTime);
         return false;
     }
 

@@ -143,12 +143,12 @@ public class MedicalDeviceDAOImpl implements MedicalDeviceDAO {
     @Override
     public List<MedicalDevice> findDevicesByExam(int examId) {
         List<MedicalDevice> devices = new ArrayList<>();
-        String sql = "SELECT me.* " +
-                "FROM medical_exams me " +
-                "WHERE me.exam_id IN (" +
-                "  SELECT exam_id " +
+        String sql = "SELECT md.* " +
+                "FROM medical_devices md " +
+                "WHERE md.device_id IN (" +
+                "  SELECT device_id " +
                 "  FROM device_exam_capabilities " +
-                "  WHERE device_id = ?" +
+                "  WHERE exam_id = ?" +
                 ")";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

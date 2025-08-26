@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS TriageFlowSystem CHARACTER SET utf8mb4 COLLATE utf
 USE TriageFlowSystem;
 
 -- 表1：患者基本情况
-CREATE TABLE `patients` (
+CREATE TABLE IF NOT EXISTS `patients` (
                             `patient_id` INT AUTO_INCREMENT PRIMARY KEY,
                             `name` VARCHAR(100) NOT NULL,
                             `gender` ENUM('Male', 'Female', 'Other') NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `patients` (
 ) ENGINE=InnoDB;
 
 -- 表3：检查项目详情
-CREATE TABLE `medical_exams` (
+CREATE TABLE IF NOT EXISTS `medical_exams` (
                                  `exam_id` INT AUTO_INCREMENT PRIMARY KEY,
                                  `exam_name` VARCHAR(100) NOT NULL,
                                  `requires_fasting` BOOLEAN DEFAULT FALSE COMMENT '该项目是否需要空腹',
@@ -23,7 +23,7 @@ CREATE TABLE `medical_exams` (
 ) ENGINE=InnoDB;
 
 -- 表4：检查仪器详情
-CREATE TABLE `medical_devices` (
+CREATE TABLE IF NOT EXISTS `medical_devices` (
                                    `device_id`     INT AUTO_INCREMENT PRIMARY KEY,
                                    `device_name` VARCHAR(100) NOT NULL,
                                    `quantity`    INT DEFAULT 1 COMMENT '可用数量',
@@ -32,7 +32,7 @@ CREATE TABLE `medical_devices` (
 ) ENGINE=InnoDB;
 
 -- 辅助表：仪器能检查的项目关联表
-CREATE TABLE `device_exam_capabilities` (
+CREATE TABLE IF NOT EXISTS `device_exam_capabilities` (
                                             `device_id` INT NOT NULL,
                                             `exam_id` INT NOT NULL,
                                             `duration_minutes` INT NOT NULL COMMENT '该仪器做此项目的检查时间（分钟）',
@@ -42,7 +42,7 @@ CREATE TABLE `device_exam_capabilities` (
 ) ENGINE=InnoDB;
 
 -- 辅助表：仪器工作时间段表
-CREATE TABLE `device_working_schedules` (
+CREATE TABLE IF NOT EXISTS `device_working_schedules` (
                                             `schedule_id` INT AUTO_INCREMENT PRIMARY KEY,
                                             `device_id` INT NOT NULL,
                                             `day_of_week` TINYINT NOT NULL COMMENT '1-7表示周一到周日',
@@ -53,7 +53,7 @@ CREATE TABLE `device_working_schedules` (
 ) ENGINE=InnoDB;
 
 -- 表2：患者的检查项目关联表
-CREATE TABLE `patient_exam_assignments` (
+CREATE TABLE IF NOT EXISTS `patient_exam_assignments` (
                                             `assignment_id` INT AUTO_INCREMENT PRIMARY KEY,
                                             `patient_id` INT NOT NULL,
                                             `exam_id` INT NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `patient_exam_assignments` (
 ) ENGINE=InnoDB;
 
 -- 辅助表：检查项目前置约束表
-CREATE TABLE `exam_prerequisites` (
+CREATE TABLE IF NOT EXISTS `exam_prerequisites` (
                                       `exam_id` INT NOT NULL,
                                       `prerequisite_exam_id` INT NOT NULL COMMENT '必须先完成的检查项目ID',
                                       PRIMARY KEY (`exam_id`, `prerequisite_exam_id`),
@@ -82,7 +82,7 @@ CREATE TABLE `exam_prerequisites` (
 ) ENGINE=InnoDB;
 
 -- 辅助表：设备实时状态表
-CREATE TABLE `device_real_time_status` (
+CREATE TABLE IF NOT EXISTS `device_real_time_status` (
                                            `status_id` INT AUTO_INCREMENT PRIMARY KEY,
                                            `device_id` INT NOT NULL,
                                            `current_patient_id` INT COMMENT '当前正在检查的患者ID',
